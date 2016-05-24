@@ -1,7 +1,8 @@
 #!/bin/bash
 
-router_id=`neutron router-list -F id -F name | grep c6ee82cf | awk '{print $2}'`
-echo ">>>router id for space $1 is"
+space_id=$1
+router_id=`neutron router-list -F id -F name | grep $space_id | awk '{print $2}'`
+echo ">>>router id for space $space_id is"
 echo $router_id
 
 echo ">>>check the router location"
@@ -22,3 +23,6 @@ neutron vpn-ikepolicy-list --tenant-id $tenant_id
 
 echo ">>>ipsec in this tenant"
 neutron vpn-ipsecpolicy-list --tenant-id $tenant_id
+
+echo ">>>meter labels in this tenant"
+neutron meter-label-list --tenant-id $tenant_id
